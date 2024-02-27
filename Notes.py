@@ -54,3 +54,66 @@ class NoteApp:
                self.save_notes()
                break
 
+  def delete_note(self, id):
+      for note in self.notes:
+          if note.id == id:
+              self.notes.remove(note)
+              self.save_notes()
+              break
+  def filter_notes_by_date(self, date):
+      filtered_notes = []
+      for note in self.notes:
+          if note.date.split()[0] == date:
+              filtered_notes.append(note)
+      return filtered_notes
+
+app = NoteApp()
+
+while True:
+    command = input("Введите команду: ")
+
+if command == "add":
+    title = input("Введите заголовок заметки: ")
+    body = input("Введите тело заметки: ")
+    app.add_note(title, body)
+    print("Заметка успешно сохранена")
+
+elif command == "read":
+    app.read_notes()
+    for note in app.notes:
+        print(f"ID:{note.id}")
+        print(f"Заголовок:{note.title}")
+        print(f"Тело:{note.body}")
+        print(f"Дата:{note.date}")
+        print()
+
+elif command == "edit":
+    id = int(input("Введите ID заметки для редактирования: "))
+    new_title = input("Введите новый заголовок: ")
+    new_body = input("Введите новое тело: ")
+    app.edit_note(id, new_title, new_body)
+    print("Заметка успешно отредактирована")
+
+elif command == "delete":
+    id = int(input("Введите ID заметки для удаления: "))
+    app.delete_note(id)
+    print("Заметка успешно удалена")
+
+elif command == "filter":
+    date = input("Введите дату для фильтрации (ГГГГ-ММ-ДД): ")
+    filtered_notes = app.filter_notes_by_date(date)
+    for note in filtered_notes:
+        print(f"ID:{note.id}"})
+        print(f"Заголовок:{note.title}")
+        print(f"Тело:{note.body}")
+        print(f"Дата:{note.date}")
+        print()
+
+elif command == "exit":
+    break
+
+else:
+    print("Некорректная команда")
+
+  
+
