@@ -45,3 +45,12 @@ class NoteApp:
                     note_data["date"]
                 )                
                 self.notes.append(note)
+   def edit_note(self, id, new_title, new_body):
+       for note in self.notes:
+           if note.id == id:
+               note.title = new_title
+               note.body = new_body
+               note.date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+               self.save_notes()
+               break
+
